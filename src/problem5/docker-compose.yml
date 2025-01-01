@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      # Use environment variables from .env
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      # Map your local DB_PORT to container's 5432 or same port-to-port
+      - "${DB_PORT}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  app:
+    build: .
+    container_name: node_app
+    ports:
+      # Map the PORT from .env to container
+      - "${PORT}:${PORT}"
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      PORT: ${PORT}
+      DB_HOST: db       # db is the service name from above
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      CORS_URL: ${CORS_URL}
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  db-data:
