@@ -1,0 +1,20 @@
+{
+  "name": "problem4",
+  "version": "1.0.0",
+  "description": "three different ways to sum to n",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "npm run clean && npm run build-ts",
+    "clean": "rimraf ./dist",
+    "build-ts": "tsc"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2"
+  },
+  "author": "mohamed-abdullah",
+  "license": "ISC"
+}
